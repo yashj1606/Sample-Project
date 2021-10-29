@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TO-DO LIST</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+    <link rel="stylesheet" type="text/css" href="todoStyle.css">
+    <script type="text/javascript">
+        var items_array = [];
+        var list = "";
+        function addItems()
+        {
+            var items = document.getElementById("add").value;
+            document.getElementById("add").value = " ";
+            if(items != "")
+            {  
+                items_array.push(items);
+            }
+                display();
+        }
+
+        function display()
+        {
+            document.getElementById("mylist").innerHTML = " ";
+            for(var i=0;i<items_array.length;i++)
+            {
+               document.getElementById("mylist").innerHTML +="<p id='listitems"+i+"'  onclick="+document+">"+items_array[i]+"</p><input type='button' value='delete' onclick='delt("+i+");'> <input type='button' value='Edit' onclick='edit("+i+")'> <input type='button' value='Completed' onclick='mark("+i+");'>";
+            }
+        }
+                
+        function delt(C_index)
+        {
+            items_array.splice(C_index,1);
+            display();
+        }
+
+        function edit(C_index)
+        {
+               var string = String("listitems" + C_index);
+               document.getElementById(string).innerHTML+="<span id='editspan'> <input type='text' id='editdata' placeholder='Enter Correct items Name' name='editdata' class='editdata'> <input type='button' id='editdone' value='OK!' onclick='editdone("+C_index+")'></span>";
+        }
+
+        function editdone(C_index)
+        {
+            var value=document.getElementById('editdata').value;
+            items_array[C_index]=value;
+            display();
+        }
+
+        function mark(C_index)
+        {
+            var string = String("listitems" + C_index);
+            document.getElementById(string).style.backgroundColor = 'orange';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="container1">
+            <center>
+                <h2> ---- TODO LIST ---- </h2>
+                <form>
+                    <label style="font-family:monospace;font-size:20px;" ><b>ENTER ITEMS NAME</b></label><br><br>
+                    <input type="text" name="items" id="add" placeholder="Enter your items.." />
+                    <input type="button" name="additems" value="ADD" onclick="addItems()" />
+                    <p id="msg"></p>   
+                </form>
+            </center>
+        </div>
+        <div class="container2">                
+                <h2>  --- My TODO LIST --- </h2>
+                <div class="list" id="mylist">  
+        </div>
+    </div>
+</body>
+</html>
